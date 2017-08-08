@@ -12,19 +12,11 @@ import org.jetbrains.anko._LinearLayout
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.wrapContent
 
-class SettingGroup(val ctx: Context): _LinearLayout(ctx) {
-    val items: MutableList<SettingItem> = mutableListOf()
+class SettingGroup(ctx: Context): _LinearLayout(ctx) {
     var topSeperatorHeight = 0
     var bottomSeperatorHeight = 0
     init {
         orientation = LinearLayout.VERTICAL
-    }
-    fun addItem(item: SettingItem) {
-        items.add(item)
-    }
-
-    fun clear() {
-        items.clear()
     }
 }
 

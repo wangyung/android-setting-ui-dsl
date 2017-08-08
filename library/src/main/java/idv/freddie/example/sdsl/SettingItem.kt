@@ -192,6 +192,5 @@ fun SettingGroup.settingItem(descriptionType: SettingItem.DescriptionType = Sett
                              init: (@AnkoViewDslMarker SettingItem).() -> Unit): SettingItem {
     val settingItem = settingItemLayout(context = this.context, descriptionType = descriptionType)
     settingItem.init()
-    this.addItem(settingItem)
     return settingItem
 }

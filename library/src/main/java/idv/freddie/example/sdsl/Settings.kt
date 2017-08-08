@@ -11,10 +11,8 @@ import org.jetbrains.anko.wrapContent
 
 class Settings(ctx: Context) : _ScrollView(ctx) {
     internal val rootContainer = verticalLayout().lparams(width = matchParent, height = wrapContent)
-    val groups: MutableList<SettingGroup> = mutableListOf()
 
     fun addGroup(group: SettingGroup) {
-        groups.add(group)
         rootContainer.addView(group)
     }
 }
