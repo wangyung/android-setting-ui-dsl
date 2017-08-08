@@ -1,5 +1,5 @@
 ## Overview
-This is an example project to explain how to write a DSL with Kotlin. This DSL can create setting UI with a flexible way
+This is an example project to explain how to write a DSL with Kotlin. This DSL depends on anko and it can create setting UI with a flexible way.
 
 ## Example 
 ```
