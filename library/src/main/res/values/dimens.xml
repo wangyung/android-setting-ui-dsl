@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="thin_line">1px</dimen>
+  <dimen name="thin_line_eraser">-1px</dimen>
+  <dimen name="default_padding">8dp</dimen>
+  <dimen name="setting_badge_height">12dp</dimen>
+</resources>

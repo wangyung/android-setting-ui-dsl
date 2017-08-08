@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="SettingItemText">
+    <item name="android:textSize">15sp</item>
+    <item name="android:textColor">@color/dark_grey_1d1d1d</item>
+  </style>
+
+  <style name="SettingItemDescriptionText">
+    <item name="android:textSize">15sp</item>
+    <item name="android:maxLines">1</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:textColor">@color/dark_grey_1d1d1d_opacity_60</item>
+  </style>
+
+  <style name="SettingItemDescriptionBadge">
+    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">@android:color/white</item>
+    <item name="android:includeFontPadding">false</item>
+  </style>
+</resources>

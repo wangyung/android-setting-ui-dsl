@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item name="setting_item_title" type="id" />
+  <item name="setting_item_left_icon" type="id" />
+  <item name="setting_item_right_icon" type="id" />
+</resources>
