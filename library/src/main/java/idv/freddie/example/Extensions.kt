@@ -1,17 +1,16 @@
 package idv.freddie.example
 
 import android.content.Context
-import android.content.res.Resources
 import android.support.v4.content.ContextCompat
 import android.util.TypedValue
 import android.view.View
-import org.jetbrains.anko.AnkoException
+import org.jetbrains.anko.internals.AnkoInternals
 
 /**
  * use ripple effect, if not, the background would be reset
  */
 var View.useRippleEffect: Boolean
-    get() = throw AnkoException("useRippleEffect doesn't support getter")
+    get() = AnkoInternals.noGetter()
     set(value) {
         if (value) {
             background =
