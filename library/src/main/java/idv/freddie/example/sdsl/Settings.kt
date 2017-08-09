@@ -17,7 +17,7 @@ class Settings(ctx: Context) : _ScrollView(ctx) {
     }
 }
 
-fun ViewManager.settings(init: (@AnkoViewDslMarker Settings).() -> Unit): Settings {
+inline fun ViewManager.settings(init: (@AnkoViewDslMarker Settings).() -> Unit): Settings {
     val ctx = AnkoInternals.wrapContextIfNeeded(AnkoInternals.getContext(this), 0)
     val settings = Settings(ctx)
     settings.init()

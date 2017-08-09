@@ -21,7 +21,6 @@ import org.jetbrains.anko._FrameLayout
 import org.jetbrains.anko.alignParentRight
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.centerVertically
-import org.jetbrains.anko.custom.ankoView
 import org.jetbrains.anko.dimen
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.frameLayout
@@ -39,7 +38,9 @@ import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textView
 import org.jetbrains.anko.wrapContent
 
-class SettingItem   (ctx: Context) : _FrameLayout(ctx) {
+class SettingItem(ctx: Context,
+                  val descriptionType: SettingItem.DescriptionType = SettingItem.DescriptionType.NONE,
+                  val showRightIcon: Boolean = true) : _FrameLayout(ctx) {
     internal lateinit var leftIconView: ImageView
     internal var rightIconView: ImageView? = null
     internal var descriptionLabel: TextView? = null
@@ -97,13 +98,10 @@ class SettingItem   (ctx: Context) : _FrameLayout(ctx) {
 
     init {
         isClickable = true
+        createLayout()
     }
-}
 
-internal fun SettingGroup.settingItemLayout(context: Context,
-                                            descriptionType: SettingItem.DescriptionType = SettingItem.DescriptionType.NONE,
-                                            showRightIcon: Boolean = true): SettingItem {
-    return ankoView(::SettingItem, 0) {
+    private fun createLayout() {
         backgroundResource = R.drawable.gray_e9e9e9_top_bottom_stroke_white_bg
         frameLayout {
             //support ripple effect to look better
@@ -188,9 +186,11 @@ internal fun SettingGroup.settingItemLayout(context: Context,
     }
 }
 
-fun SettingGroup.settingItem(descriptionType: SettingItem.DescriptionType = SettingItem.DescriptionType.NONE,
-                             init: (@AnkoViewDslMarker SettingItem).() -> Unit): SettingItem {
-    val settingItem = settingItemLayout(context = this.context, descriptionType = descriptionType)
+inline fun SettingGroup.settingItem(descriptionType: SettingItem.DescriptionType = SettingItem.DescriptionType.NONE,
+                                    init: (@AnkoViewDslMarker SettingItem).() -> Unit): SettingItem {
+    val ctx = AnkoInternals.wrapContextIfNeeded(AnkoInternals.getContext(this), 0)
+    val settingItem = SettingItem(ctx = ctx, descriptionType = descriptionType)
     settingItem.init()
+    AnkoInternals.addView(this, settingItem)
     return settingItem
 }

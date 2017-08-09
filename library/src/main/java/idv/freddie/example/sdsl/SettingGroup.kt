@@ -39,8 +39,8 @@ class SettingGroup(ctx: Context): _LinearLayout(ctx) {
     }
 }
 
-fun Settings.settingGroup(init: (@AnkoViewDslMarker SettingGroup).() -> Unit): SettingGroup {
-   val settingGroup = SettingGroup(this.context)
+inline fun Settings.settingGroup(init: (@AnkoViewDslMarker SettingGroup).() -> Unit): SettingGroup {
+    val settingGroup = SettingGroup(this.context)
     settingGroup.init()
     settingGroup.layoutParams = LinearLayout.LayoutParams(matchParent, wrapContent).apply {
         topMargin = settingGroup.topSeperatorHeight
