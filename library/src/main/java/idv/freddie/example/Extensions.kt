@@ -21,7 +21,7 @@ var View.useRippleEffect: Boolean
     }
 
 fun Context.getResIdFromAttr(attr: Int): Int {
-    val ret = TypedValue()
-    theme.resolveAttribute(attr, ret, true)
-    return ret.resourceId
+    val value = TypedValue()
+    theme.resolveAttribute(attr, value, true)
+    return value.resourceId
 }
