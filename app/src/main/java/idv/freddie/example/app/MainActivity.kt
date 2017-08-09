@@ -58,8 +58,9 @@ class MainActivityUi : AnkoComponent<MainActivity> {
 
     fun setting1(viewManager: ViewManager): Settings {
         return viewManager.settings {
-            backgroundColor = resources.getColor(R.color.grey_777777)
+            backgroundColor = resources.getColor(android.R.color.white)
             settingGroup {
+                title = "Group1"
                 settingItem {
                     leftIconResId = R.drawable.icon1
                     rightIconResId = R.drawable.icon_arrow
@@ -88,8 +89,9 @@ class MainActivityUi : AnkoComponent<MainActivity> {
 
     fun setting2(viewManager: ViewManager): Settings {
         return viewManager.settings {
-            backgroundColor = resources.getColor(R.color.grey_e9e9e9)
+            backgroundColor = resources.getColor(android.R.color.white)
             settingGroup {
+                title = "Group1"
                 topSeperatorHeight = dip(10)
                 for (i in 1 .. 5) {
                     settingItem(descriptionType = SettingItem.DescriptionType.TEXT) {
@@ -105,6 +107,7 @@ class MainActivityUi : AnkoComponent<MainActivity> {
             }
 
             settingGroup {
+                title = "Group2"
                 topSeperatorHeight = dip(20)
                 for (i in 1 .. 5) {
                     settingItem {
@@ -119,6 +122,7 @@ class MainActivityUi : AnkoComponent<MainActivity> {
             }
 
             settingGroup {
+                title = "Group3"
                 topSeperatorHeight = dip(20)
                 for (i in 1 .. 5) {
                     settingItem(descriptionType = SettingItem.DescriptionType.BADGE) {

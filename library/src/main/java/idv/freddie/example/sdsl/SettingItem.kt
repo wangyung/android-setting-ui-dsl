@@ -164,7 +164,7 @@ internal fun SettingGroup.settingItemLayout(context: Context,
                             visibility = View.INVISIBLE
                             background = ContextCompat.getDrawable(context, R.drawable.selection_badge_red_bg)
                             descriptionLabel = textView {
-                                textSize = sp(3).toFloat()
+                                textSize = sp(3.5f).toFloat()
                                 textColor = Color.WHITE
                                 includeFontPadding = false
                             }.lparams(width = wrapContent, height = dimen(R.dimen.setting_badge_height))

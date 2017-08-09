@@ -7,16 +7,35 @@ package idv.freddie.example.sdsl
 
 import android.content.Context
 import android.widget.LinearLayout
+import android.widget.TextView
+import idv.freddie.example.R
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko._LinearLayout
+import org.jetbrains.anko.dip
 import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.sp
+import org.jetbrains.anko.textColor
+import org.jetbrains.anko.textView
+import org.jetbrains.anko.verticalMargin
 import org.jetbrains.anko.wrapContent
 
 class SettingGroup(ctx: Context): _LinearLayout(ctx) {
     var topSeperatorHeight = 0
     var bottomSeperatorHeight = 0
+    var titleView: TextView
+    var title: String
+        set(value) { titleView.text = value }
+        get() = titleView.text.toString()
+
     init {
         orientation = LinearLayout.VERTICAL
+        titleView = textView {
+            textColor = ctx.resources.getColor(R.color.grey_454545)
+            textSize = sp(4).toFloat()
+        }.lparams(width = matchParent, height = wrapContent) {
+            verticalMargin = dip(4)
+            leftMargin = dip(12)
+        }
     }
 }
 
