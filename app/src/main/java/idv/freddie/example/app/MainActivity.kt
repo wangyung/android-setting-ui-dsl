@@ -64,14 +64,14 @@ class MainActivityUi : AnkoComponent<MainActivity> {
                 settingItem {
                     leftIconResId = R.drawable.icon1
                     rightIconResId = R.drawable.icon_arrow
-                    title = "Title1"
+                    title = "Item1"
                     onClick { context.toast("click item1") }
                 }
 
                 settingItem(descriptionType = SettingItem.DescriptionType.TEXT) {
                     leftIconResId = R.drawable.icon2
                     rightIconResId = R.drawable.icon_arrow
-                    title = "Title2"
+                    title = "Item2"
                     description = "Description2"
                     onClick { context.toast("click item2") }
                 }
@@ -79,7 +79,7 @@ class MainActivityUi : AnkoComponent<MainActivity> {
                 settingItem(descriptionType = SettingItem.DescriptionType.BADGE) {
                     leftIconResId = R.drawable.icon3
                     rightIconResId = R.drawable.icon_arrow
-                    title = "Title3"
+                    title = "Item3"
                     description = "3"
                     onClick { context.toast("click item3") }
                 }
@@ -88,6 +88,24 @@ class MainActivityUi : AnkoComponent<MainActivity> {
     }
 
     fun setting2(viewManager: ViewManager): Settings {
+        return viewManager.settings {
+            backgroundColor = resources.getColor(android.R.color.white)
+            settingGroup {
+                title = "Group1"
+                for (i in 1 .. 3) {
+                    settingItem {
+                        rightIconResId = R.drawable.icon_arrow
+                        leftIconResId = resources.getIdentifier("icon$i", "drawable", context.packageName)
+                        title = "Item$i"
+                        description = "Description$i"
+                        onClick { context.toast("click item$i") }
+                    }
+                }
+            }
+        }
+    }
+
+    fun setting3(viewManager: ViewManager): Settings {
         return viewManager.settings {
             backgroundColor = resources.getColor(android.R.color.white)
             settingGroup {
@@ -123,11 +141,11 @@ class MainActivityUi : AnkoComponent<MainActivity> {
 
             settingGroup {
                 title = "Group3"
-                topSeperatorHeight = dip(20)
+                topSeperatorHeight = dip(50)
                 for (i in 1 .. 5) {
                     settingItem(descriptionType = SettingItem.DescriptionType.BADGE) {
                         if (i % 2 == 1) {
-                            backgroundColor = resources.getColor(R.color.blue_64b5f6)
+                            backgroundColor = resources.getColor(R.color.grey_777777)
                         }
                         title = "Group3:Item$i"
                         description = "$i"

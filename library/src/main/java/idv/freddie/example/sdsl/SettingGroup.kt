@@ -22,11 +22,11 @@ import org.jetbrains.anko.wrapContent
 class SettingGroup(ctx: Context): _LinearLayout(ctx) {
     var topSeperatorHeight = 0
     var bottomSeperatorHeight = 0
-    var titleView: TextView
     var title: String
         set(value) { titleView.text = value }
         get() = titleView.text.toString()
 
+    private var titleView: TextView
     init {
         orientation = LinearLayout.VERTICAL
         titleView = textView {
