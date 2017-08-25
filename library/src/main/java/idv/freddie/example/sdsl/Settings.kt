@@ -1,5 +1,6 @@
 package idv.freddie.example.sdsl
 
+import android.app.Activity
 import android.content.Context
 import android.view.ViewManager
 import org.jetbrains.anko.AnkoViewDslMarker

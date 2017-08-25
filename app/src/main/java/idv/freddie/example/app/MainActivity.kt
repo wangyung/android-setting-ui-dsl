@@ -28,18 +28,28 @@ import org.jetbrains.anko.toolbar
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 
-class MainActivity : Activity() {
+interface MainAction {
+    fun showToast(message: String)
+}
+
+class MainActivity : Activity(), MainAction {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val ui = MainActivityUi().apply { setContentView(this@MainActivity) }
         setActionBar(ui.toolBar)
     }
+
+    override fun showToast(message: String) {
+        toast(message)
+    }
 }
 
-class MainActivityUi : AnkoComponent<MainActivity> {
+class MainActivityUi : AnkoComponent<MainAction> {
     lateinit var toolBar: Toolbar
-    override fun createView(ui: AnkoContext<MainActivity>) = with(ui) {
+    lateinit var owner: MainAction
+    override fun createView(ui: AnkoContext<MainAction>) = with(ui) {
+        this@MainActivityUi.owner = owner
         verticalLayout {
             themedAppBarLayout(theme = R.style.AppTheme_AppBarOverlay) {
                 lparams(width = matchParent, height = wrapContent)
@@ -56,8 +66,8 @@ class MainActivityUi : AnkoComponent<MainActivity> {
         }
     }
 
-    fun setting1(viewManager: ViewManager): Settings {
-        return viewManager.settings {
+    fun setting1(viewManager: ViewManager): Settings = with(viewManager) {
+        settings {
             backgroundColor = resources.getColor(android.R.color.white)
             settingGroup {
                 title = "Group1"
@@ -65,7 +75,7 @@ class MainActivityUi : AnkoComponent<MainActivity> {
                     leftIconResId = R.drawable.icon1
                     rightIconResId = R.drawable.icon_arrow
                     title = "Item1"
-                    onClick { context.toast("click item1") }
+                    onClick { owner.showToast("click item1") }
                 }
 
                 settingItem(descriptionType = SettingItem.DescriptionType.TEXT) {
@@ -73,7 +83,7 @@ class MainActivityUi : AnkoComponent<MainActivity> {
                     rightIconResId = R.drawable.icon_arrow
                     title = "Item2"
                     description = "Description2"
-                    onClick { context.toast("click item2") }
+                    onClick { owner.showToast("click item1") }
                 }
 
                 settingItem(descriptionType = SettingItem.DescriptionType.BADGE) {
@@ -81,14 +91,14 @@ class MainActivityUi : AnkoComponent<MainActivity> {
                     rightIconResId = R.drawable.icon_arrow
                     title = "Item3"
                     description = "3"
-                    onClick { context.toast("click item3") }
+                    onClick { owner.showToast("click item1") }
                 }
             }
         }
     }
 
-    fun setting2(viewManager: ViewManager): Settings {
-        return viewManager.settings {
+    fun setting2(viewManager: ViewManager) = with(viewManager) {
+        settings {
             backgroundColor = resources.getColor(android.R.color.white)
             settingGroup {
                 title = "Group1"
@@ -105,8 +115,8 @@ class MainActivityUi : AnkoComponent<MainActivity> {
         }
     }
 
-    fun setting3(viewManager: ViewManager): Settings {
-        return viewManager.settings {
+    fun setting3(viewManager: ViewManager) = with(viewManager) {
+        settings {
             backgroundColor = resources.getColor(android.R.color.white)
             settingGroup {
                 title = "Group1"
