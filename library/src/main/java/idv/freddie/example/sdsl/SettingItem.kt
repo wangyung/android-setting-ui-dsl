@@ -191,6 +191,6 @@ inline fun SettingGroup.settingItem(descriptionType: SettingItem.DescriptionType
     val ctx = AnkoInternals.wrapContextIfNeeded(AnkoInternals.getContext(this), 0)
     val settingItem = SettingItem(ctx = ctx, descriptionType = descriptionType)
     settingItem.init()
-    AnkoInternals.addView(this, settingItem)
+    this.addView(settingItem)
     return settingItem
 }
