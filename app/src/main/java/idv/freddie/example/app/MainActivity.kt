@@ -28,6 +28,7 @@ import org.jetbrains.anko.toolbar
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 
+
 interface MainAction {
     fun showToast(message: String)
 }
@@ -47,7 +48,7 @@ class MainActivity : Activity(), MainAction {
 
 class MainActivityUi : AnkoComponent<MainAction> {
     lateinit var toolBar: Toolbar
-    lateinit var owner: MainAction
+    private lateinit var owner: MainAction
     override fun createView(ui: AnkoContext<MainAction>) = with(ui) {
         this@MainActivityUi.owner = owner
         verticalLayout {
@@ -62,11 +63,12 @@ class MainActivityUi : AnkoComponent<MainAction> {
                 }
             }
 
-            setting1(this).lparams(width = matchParent, height = matchParent)
+            setting3(this).lparams(width = matchParent, height = matchParent)
         }
     }
 
-    fun setting1(viewManager: ViewManager): Settings = with(viewManager) {
+    @SuppressWarnings("deprecation")
+    private fun setting1(viewManager: ViewManager): Settings = with(viewManager) {
         settings {
             backgroundColor = resources.getColor(android.R.color.white)
             settingGroup {
@@ -83,7 +85,7 @@ class MainActivityUi : AnkoComponent<MainAction> {
                     rightIconResId = R.drawable.icon_arrow
                     title = "Item2"
                     description = "Description2"
-                    onClick { owner.showToast("click item1") }
+                    onClick { owner.showToast("click item2") }
                 }
 
                 settingItem(descriptionType = SettingItem.DescriptionType.BADGE) {
@@ -91,20 +93,20 @@ class MainActivityUi : AnkoComponent<MainAction> {
                     rightIconResId = R.drawable.icon_arrow
                     title = "Item3"
                     description = "3"
-                    onClick { owner.showToast("click item1") }
+                    onClick { owner.showToast("click item3") }
                 }
             }
         }
     }
 
-    fun setting2(viewManager: ViewManager) = with(viewManager) {
+    @SuppressWarnings("deprecation")
+    private fun setting2(viewManager: ViewManager) = with(viewManager) {
         settings {
             backgroundColor = resources.getColor(android.R.color.white)
             settingGroup {
                 title = "Group1"
-                for (i in 1 .. 3) {
-                    settingItem {
-                        rightIconResId = R.drawable.icon_arrow
+                for (i in 1..3) {
+                    settingItem(SettingItem.DescriptionType.TEXT) {
                         leftIconResId = resources.getIdentifier("icon$i", "drawable", context.packageName)
                         title = "Item$i"
                         description = "Description$i"
@@ -115,17 +117,20 @@ class MainActivityUi : AnkoComponent<MainAction> {
         }
     }
 
-    fun setting3(viewManager: ViewManager) = with(viewManager) {
+    @SuppressWarnings("deprecation")
+    private fun setting3(viewManager: ViewManager) = with(viewManager) {
         settings {
             backgroundColor = resources.getColor(android.R.color.white)
+
             settingGroup {
                 title = "Group1"
                 topSeperatorHeight = dip(10)
-                for (i in 1 .. 5) {
+
+                for (i in 1..5) {
                     settingItem(descriptionType = SettingItem.DescriptionType.TEXT) {
                         if (i % 2 == 0) {
                             leftIconResId = resources.getIdentifier("icon$i", "drawable", context.packageName)
-                            backgroundColor = resources.getColor(R.color.red_fe5543)
+                            backgroundColor = resources.getColor(R.color.red_f5b7b1)
                             rightIconResId = R.drawable.icon_arrow
                         }
                         title = "Group1:Item$i"
@@ -137,10 +142,10 @@ class MainActivityUi : AnkoComponent<MainAction> {
             settingGroup {
                 title = "Group2"
                 topSeperatorHeight = dip(20)
-                for (i in 1 .. 5) {
+                for (i in 1..5) {
                     settingItem {
                         if (i % 2 == 1) {
-                            backgroundColor = resources.getColor(R.color.blue_64b5f6)
+                            backgroundColor = resources.getColor(R.color.blue_b7d9f5)
                             rightIconResId = R.drawable.icon_arrow
                         }
                         title = "Group2:Item$i"
@@ -152,7 +157,7 @@ class MainActivityUi : AnkoComponent<MainAction> {
             settingGroup {
                 title = "Group3"
                 topSeperatorHeight = dip(50)
-                for (i in 1 .. 5) {
+                for (i in 1..5) {
                     settingItem(descriptionType = SettingItem.DescriptionType.BADGE) {
                         if (i % 2 == 1) {
                             backgroundColor = resources.getColor(R.color.grey_777777)

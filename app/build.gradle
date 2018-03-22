@@ -1,13 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
-ext {
-    anko_version = '0.10.1'
-}
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    buildToolsVersion "26.0.3"
     defaultConfig {
         applicationId "idv.freddie.example.app"
         minSdkVersion 21

@@ -10,7 +10,7 @@ import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 
 class Settings(ctx: Context) : _ScrollView(ctx) {
-    internal val rootContainer = verticalLayout().lparams(width = matchParent, height = wrapContent)
+    private val rootContainer = verticalLayout().lparams(width = matchParent, height = wrapContent)
 
     fun addGroup(group: SettingGroup) {
         rootContainer.addView(group)

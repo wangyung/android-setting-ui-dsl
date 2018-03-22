@@ -13,6 +13,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import idv.freddie.example.R
 import idv.freddie.example.useRippleEffect
@@ -38,15 +39,34 @@ import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textView
 import org.jetbrains.anko.wrapContent
 
-class SettingItem(ctx: Context,
-                  val descriptionType: SettingItem.DescriptionType = SettingItem.DescriptionType.NONE,
-                  val showRightIcon: Boolean = true) : _FrameLayout(ctx) {
-    internal lateinit var leftIconView: ImageView
-    internal var rightIconView: ImageView? = null
-    internal var descriptionLabel: TextView? = null
-    internal var descriptionContainer: ViewGroup? = null
+class SettingItem(
+        ctx: Context,
+        val descriptionType: SettingItem.DescriptionType = SettingItem.DescriptionType.NONE
+) : _FrameLayout(ctx) {
+    private lateinit var leftIconView: ImageView
+    private var rightIconView: ImageView? = null
+    private var descriptionLabel: TextView? = null
+    private var descriptionContainer: ViewGroup? = null
 
-    internal lateinit var titleView: TextView
+    lateinit var titleView: TextView
+
+    private var _showRightIcon: Boolean = false
+    private var showRightIcon: Boolean
+        set(value) {
+            _showRightIcon = value
+            when(descriptionType) {
+                DescriptionType.TEXT -> {
+                    relayoutDescriptionLabel(value,
+                            descriptionLabel?.layoutParams as? RelativeLayout.LayoutParams)
+                }
+                DescriptionType.BADGE -> {
+                    relayoutDescriptionBadge(value,
+                            descriptionContainer?.layoutParams as? RelativeLayout.LayoutParams)
+                }
+                else -> {}
+            }
+        }
+        get() = _showRightIcon
 
     var rightIconResId: Int?
         set(value) {
@@ -54,6 +74,7 @@ class SettingItem(ctx: Context,
                 rightIconView?.imageResource = it
                 rightIconView?.visibility = View.VISIBLE
             }
+            showRightIcon = value != null
         }
         get() = AnkoInternals.noGetter()
 
@@ -117,15 +138,16 @@ class SettingItem(ctx: Context,
                     centerVertically()
                     margin = dip(8)
                 }
-                //FIXME: cannot find R.style.SettingItemText here, don't know why....
+
                 titleView = textView {
                     id = R.id.setting_item_title
-                    textSize = sp(5).toFloat()
+                    textSize = 14f
                     textColor = resources.getColor(R.color.dark_grey_1d1d1d)
                 }.lparams {
                     centerVertically()
                     rightOf(R.id.setting_item_left_icon)
                 }
+
                 rightIconView = imageView {
                     id = R.id.setting_item_right_icon
                     maxWidth = dip(20)
@@ -141,20 +163,14 @@ class SettingItem(ctx: Context,
                 when (descriptionType) {
                     SettingItem.DescriptionType.TEXT -> {
                         descriptionLabel = textView {
-                            textSize = sp(5).toFloat()
+                            textSize = 14f
                             maxLines = 1
                             ellipsize = TextUtils.TruncateAt.END
                             textColor = resources.getColor(R.color.dark_grey_1d1d1d_opacity_60)
                             gravity = Gravity.RIGHT
                         }.lparams(width = matchParent) {
                             centerVertically()
-                            if (showRightIcon) {
-                                rightMargin = dip(20)
-                                leftMargin = dip(8)
-                                rightOf(R.id.setting_item_title)
-                            } else {
-                                alignParentRight()
-                            }
+                            relayoutDescriptionLabel(showRightIcon, this)
                         }
                     }
                     SettingItem.DescriptionType.BADGE -> {
@@ -162,18 +178,13 @@ class SettingItem(ctx: Context,
                             visibility = View.INVISIBLE
                             background = ContextCompat.getDrawable(context, R.drawable.selection_badge_red_bg)
                             descriptionLabel = textView {
-                                textSize = sp(3.5f).toFloat()
+                                textSize = 12f //it is sp
                                 textColor = Color.WHITE
                                 includeFontPadding = false
                             }.lparams(width = wrapContent, height = dimen(R.dimen.setting_badge_height))
                         }.lparams {
                             centerVertically()
-                            if (showRightIcon) {
-                                rightMargin = dip(11)
-                                leftOf(R.id.setting_item_right_icon)
-                            } else {
-                                alignParentRight()
-                            }
+                            relayoutDescriptionBadge(showRightIcon, this)
                         }
                     }
                     else -> {
@@ -183,6 +194,25 @@ class SettingItem(ctx: Context,
                 leftMargin = dimen(R.dimen.default_padding)
             }
         }.lparams(width = matchParent, height = matchParent)
+    }
+
+    private fun relayoutDescriptionLabel(showRightIcon: Boolean, layoutParams: RelativeLayout.LayoutParams?) {
+        if (showRightIcon) {
+            layoutParams?.rightMargin = dip(11)
+            layoutParams?.leftOf(R.id.setting_item_right_icon)
+        } else {
+            layoutParams?.alignParentRight()
+        }
+    }
+
+    private fun relayoutDescriptionBadge(showRightIcon: Boolean, layoutParams: RelativeLayout.LayoutParams?) {
+        if (showRightIcon) {
+            layoutParams?.rightMargin = dip(20)
+            layoutParams?.leftMargin = dip(8)
+            layoutParams?.leftOf(R.id.setting_item_right_icon)
+        } else {
+            layoutParams?.alignParentRight()
+        }
     }
 }
 
