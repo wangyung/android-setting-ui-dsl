@@ -63,7 +63,7 @@ class MainActivityUi : AnkoComponent<MainAction> {
                 }
             }
 
-            setting3(this).lparams(width = matchParent, height = matchParent)
+            setting1(this).lparams(width = matchParent, height = matchParent)
         }
     }
 
